@@ -53,6 +53,11 @@ lazy val `hello-impl` = (project in file("hello-impl"))
       scalaTest,
       "com.google.protobuf" % "protobuf-java" % "3.6.0" % "protobuf"
     )
+  ).settings(
+    inConfig(Compile)(Seq(
+      // don't generate code for "descriptor.proto"
+      excludeFilter in PB.generate := "descriptor.proto"
+    ))
   ).settings(lagomForkedTestSettings: _*)
   .dependsOn(`hello-api`)
 
